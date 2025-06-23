@@ -111,7 +111,7 @@ const Hero = () => {
   }, []);
   
   return (
-    <section id="hero" className="relative bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-gray-800 dark:to-gray-900 text-white min-h-screen flex flex-col justify-center items-center text-center p-6 overflow-hidden">
+    <section id="hero" className="relative bg-gray-100 dark:bg-gray-900 text-white min-h-screen flex flex-col justify-center items-center text-center p-6 overflow-hidden">
       <ParticleBackground isDarkMode={isDarkMode} />
       
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center z-10 p-4">
