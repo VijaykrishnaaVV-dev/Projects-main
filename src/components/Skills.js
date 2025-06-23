@@ -10,9 +10,9 @@ const SkillBar = ({ name, percentage, color }) => {
         <h3 className="text-lg font-medium dark:text-white">{name}</h3>
         <span className="text-sm font-medium dark:text-gray-300">{percentage}%</span>
       </div>
-      <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+      <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 overflow-hidden">
         <motion.div 
-          className={`h-2.5 rounded-full ${color}`}
+          className={`h-2.5 rounded-full ${color} bg-gradient-to-r from-${color.split('-')[1]}-400 to-${color.split('-')[1]}-600`}
           initial={{ width: 0 }}
           whileInView={{ width: `${percentage}%` }}
           viewport={{ once: true }}
@@ -27,7 +27,7 @@ const SkillBar = ({ name, percentage, color }) => {
 const SkillCard = ({ name, icon, description }) => {
   return (
     <motion.div 
-      className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
+      className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
@@ -71,7 +71,7 @@ const Skills = () => {
         
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <AnimatedSection delay={0.2} direction="left">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8 border border-gray-200 dark:border-gray-700">
               <h3 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Technical Skills</h3>
               <SkillBar name="JavaScript" percentage={90} color="bg-yellow-400" />
               <SkillBar name="React" percentage={85} color="bg-blue-500" />

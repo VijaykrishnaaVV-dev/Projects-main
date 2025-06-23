@@ -7,6 +7,16 @@ import Skills from './components/Skills';
 import ContactForm from './components/ContactForm';
 import ParticleBackground from './components/ParticleBackground';
 
+const LoadingScreen = () => (
+  <motion.div
+    initial={{ opacity: 1 }}
+    exit={{ opacity: 0, transition: { duration: 0.5 } }}
+    className="fixed inset-0 flex items-center justify-center bg-gray-900 text-white text-4xl font-bold z-50"
+  >
+    Loading...
+  </motion.div>
+);
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   
@@ -104,7 +114,7 @@ const Hero = () => {
     <section id="hero" className="relative bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-gray-800 dark:to-gray-900 text-white min-h-screen flex flex-col justify-center items-center text-center p-6 overflow-hidden">
       <ParticleBackground isDarkMode={isDarkMode} />
       
-      <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center z-10">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center z-10 p-4">
         <div className="order-2 md:order-1">
           <motion.h1 
             className="text-5xl md:text-7xl font-bold mb-4"
@@ -141,7 +151,7 @@ const Hero = () => {
             
             <motion.a 
               href="#contact" 
-              className="bg-transparent border-2 border-white text-white font-bold py-3 px-6 rounded-full hover:bg-white hover:text-indigo-600 transition-colors text-lg"
+              className="bg-transparent border-2 border-white text-white font-bold py-3 px-6 rounded-full hover:bg-white hover:text-indigo-600 transition-colors text-lg shadow-lg hover:shadow-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -175,13 +185,13 @@ const Hero = () => {
 };
 
 const About = () => (
-  <section id="about" className="py-20 bg-white dark:bg-gray-800">
+  <section id="about" className="py-20 bg-white dark:bg-gray-800 px-4">
     <div className="container mx-auto px-6">
       <AnimatedSection>
         <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">About Me</h2>
       </AnimatedSection>
       
-      <div className="grid md:grid-cols-2 gap-12 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <AnimatedSection direction="left" delay={0.2}>
           <div className="relative">
             <div className="w-full h-80 md:h-96 bg-gray-300 dark:bg-gray-700 rounded-lg overflow-hidden">
@@ -236,8 +246,8 @@ const About = () => (
 );
 
 const ProjectCard = ({ title, description, imageUrl, projectUrl, techStack }) => (
-  <motion.div 
-    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden"
+  <motion.div
+    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
     whileHover={{ y: -10, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
   >
@@ -265,11 +275,11 @@ const ProjectCard = ({ title, description, imageUrl, projectUrl, techStack }) =>
         </div>
       )}
       {projectUrl && (
-        <motion.a 
-          href={projectUrl} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="inline-block bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors"
+        <motion.a
+          href={projectUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors shadow-md hover:shadow-lg"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -458,17 +468,40 @@ const Footer = () => (
 );
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // Simulate 2 seconds of loading
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="font-sans antialiased text-gray-900 dark:text-gray-100 dark:bg-gray-900">
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
-      <Footer />
-      <ThemeToggle />
-    </div>
+    <AnimatePresence>
+      {isLoading ? (
+        <LoadingScreen key="loading" />
+      ) : (
+        <motion.div
+          key="main-content"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }} // Delay fade-in after loading screen fades out
+          className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300"
+        >
+          <ThemeToggle />
+          <Navbar />
+          <main>
+            <Hero />
+            <About />
+            <Skills />
+            <Projects />
+            <ContactForm />
+          </main>
+          <Footer />
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
