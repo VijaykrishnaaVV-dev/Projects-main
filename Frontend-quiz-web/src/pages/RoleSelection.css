@@ -1,0 +1,20 @@
+.role-selection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  box-shadow: var(--box-shadow);
+}
+
+.role-selection-title {
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--navy);
+}
+
+.role-selection-buttons {
+  display: flex;
+  gap: 2rem;
+}
