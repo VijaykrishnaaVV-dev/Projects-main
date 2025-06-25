@@ -196,7 +196,7 @@ const About = () => (
           <div className="relative">
             <div className="w-full h-80 md:h-96 bg-gray-300 dark:bg-gray-700 rounded-lg overflow-hidden">
               <img 
-                src="https://via.placeholder.com/600x800" 
+                src="/images/IMG_0759.JPG" 
                 alt="Profile" 
                 className="w-full h-full object-cover"
               />
